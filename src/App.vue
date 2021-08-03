@@ -6,6 +6,34 @@
   <router-view />
 </template>
 
+<script lang="ts">
+import { defineComponent, onMounted } from "vue";
+import registerMicroAppsByQiankun from "@/qiankun/index";
+
+export default defineComponent({
+  setup() {
+    onMounted(() => {
+      registerMicroAppsByQiankun(
+        {
+          prefetch: false,
+        },
+        {
+          beforeLoad: async () => {
+            console.log("主应用 beforeLoad");
+          },
+          beforeMount: async () => {
+            console.log("主应用 beforeMount");
+          },
+          beforeUnmount: async () => {
+            console.log("主应用 beforeUnmount");
+          },
+        }
+      );
+    });
+  },
+});
+</script>
+
 <style lang="scss">
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
